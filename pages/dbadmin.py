@@ -9,7 +9,7 @@ from StockDB import StockDB
 from Accounts import Account
 
 
-def app:
+def app():
 
     st.title('DBAdmin')
 
