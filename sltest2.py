@@ -12,12 +12,12 @@ from Accounts import Account
 from multipage import MultiPage
 from pages import stockhist, dbadmin
 
-app = Multipage()
+app = MultiPage()
 
 st.title('Stock momentum app')
 
-app.add_page("Stock History", stockhist)
-app.add_page('DB Admin', dbadmin)
+app.add_page("Stock History", stockhist.app)
+app.add_page('DB Admin', dbadmin.app)
 
 app.run()
 
