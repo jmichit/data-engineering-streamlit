@@ -8,7 +8,7 @@ import datetime
 from StockDB import StockDB 
 from Accounts import Account
 
-def app:
+def app():
     col1, col2 = st.columns([1,3])
 
     datemin = datetime.date(2000,1,4)
