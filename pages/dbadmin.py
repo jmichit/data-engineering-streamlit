@@ -21,4 +21,4 @@ def app():
 
     db.close()
 
-    st.write(table)
+    st.table(table)
