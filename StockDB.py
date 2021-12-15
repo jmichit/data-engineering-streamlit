@@ -59,8 +59,8 @@ class StockDB():
         x = self.cursor.fetchall()
         columns = ['Ticker', 'Rows', 'Max Price', 'Min Price',
                    'Avg Price', 'Min Date', 'Max Date']
-        return x, columns           
-        #return pd.DataFrame(x, columns=columns).set_index('Ticker')
+        #return x, columns           
+        return pd.DataFrame(x, columns=columns).set_index('Ticker')
 
     def get_stock_prices(self, ticker):
         sql = """
