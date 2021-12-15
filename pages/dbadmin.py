@@ -15,7 +15,7 @@ def app():
 
     st.title('DBAdmin')
 
-    db = StockDB()
+    db = StockDB('stocks.db')
     
     table = db.db_summary()
 
