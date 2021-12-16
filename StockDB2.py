@@ -6,14 +6,14 @@ import requests
 
 class StockDB2():
     
-    def __init__(self, filepath):
-        try: 
-            self.conn = connect(filepath)
-            self.cursor = self.conn.cursor()
-            print('Database connected.' + str(datetime.datetime.now()))
+    # def __init__():
+    #     try: 
+    #         self.conn = connect(filepath)
+    #         self.cursor = self.conn.cursor()
+    #         print('Database connected.' + str(datetime.datetime.now()))
             
-        except Error as e:
-            return e
+    #     except Error as e:
+    #         return e
     
 #     def __del__(self):
         
