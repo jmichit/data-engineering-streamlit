@@ -67,7 +67,7 @@ def app():
     df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
     # db.close()
 
-    print(df)
+    st.dataframe(df)
 
     account = Account(balance)
 
