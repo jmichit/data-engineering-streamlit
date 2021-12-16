@@ -83,6 +83,8 @@ class StockDB2():
         #We are using the daily close price    
         # prices = [(x, float(dailyprices[x]['4. close'])) for x in dailyprices.keys()]
 
+        print('Using REST API')
+
         return pd.DataFrame(dailyprices).sort_index()
         # return pd.DataFrame(x, columns=columns).set_index('Ticker')
 

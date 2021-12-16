@@ -8,6 +8,8 @@ import pandas as pd
 import datetime
 
 from StockDB import StockDB 
+from StockDB2 import StockDB2 
+
 from Accounts import Account
 from multipage import MultiPage
 from pages import stockhist, dbadmin
