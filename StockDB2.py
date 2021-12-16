@@ -213,8 +213,8 @@ class StockDB2():
         for i, item in enumerate(data):
 
             st.progress(i)
-            
-            uslstr = url.format(ticker, item[0], item[1])
+
+            urlstr = url.format(ticker, item[0], item[1])
             response = requests.post(urlstr) 
             print(response.status_code)
 
