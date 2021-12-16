@@ -7,6 +7,8 @@ import numpy as np
 import pandas as pd
 import datetime
 
+
+from StockDB2 import StockDB2 
 from StockDB import StockDB 
 from StockAPI import StocksAPI
 from Accounts import Account
@@ -21,7 +23,9 @@ def app():
 
     db = StockDB('stocks.db')
     
-    table = db.db_summary()
+    db2 = StockDB2()
+
+    table = db2.db_summary()
 
     db.close()
 
