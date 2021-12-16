@@ -4,6 +4,8 @@ import datetime
 import pandas as pd
 import requests
 
+import streamlit as st
+
 class StockDB2():
     
     # def __init__():
@@ -86,7 +88,9 @@ class StockDB2():
 
         print('Using REST API')
 
-        return pd.DataFrame(dailyprices).sort_index()
+        temp = pd.DataFrame(dailyprices).set_index('ticker').sort_index()
+
+        return temp
         # return pd.DataFrame(x, columns=columns).set_index('Ticker')
 
     def get_stock_prices(self, ticker):
@@ -157,15 +161,61 @@ class StockDB2():
                    '10 day Min Price', '20 day Max Price', 'Signal']
         return pd.DataFrame(x, columns=columns)
     
+    # def insert_daily_data(self, ticker, data):
+    #     sql = "insert into prices (ticker, date, close) values (?, ?, ?)"
+
+    #     for i, item in enumerate(data):
+    #         args = (ticker, item[0], item[1])
+    #         self.cursor.execute(sql, args)
+
+    #     print(f"Row added:{i}")
+
+    #     self.conn.commit()
+
     def insert_daily_data(self, ticker, data):
-        sql = "insert into prices (ticker, date, close) values (?, ?, ?)"
+        # sql = "insert into prices (ticker, date, close) values (?, ?, ?)"
+
+        # for i, item in enumerate(data):
+        #     args = (ticker, item[0], item[1])
+        #     self.cursor.execute(sql, args)
+
+        # print(f"Row added:{i}")
+
+        # self.conn.commit()
+
+        # url = 'https://g324209f0c2c559-db202112160000.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/api/insert//:cdate/:price'
+
+        # params = {'ticker':ticker,
+        #           'cdate': cdate,
+        #           'price' : price}
+
+        # # response = requests.get(url, params=params)
+        
+        # response = requests.post(url) 
+
+        # data  = response.json()
+
+        # fname = 'compact-' + ticker + '.pkl'
+        # with open(fname, 'wb') as file:
+        #     pkl.dump(data, file )
+
+#        dailyprices = data['items']
+
+        #We are using the daily close price    
+        # prices = [(x, float(dailyprices[x]['4. close'])) for x in dailyprices.keys()]
+
+ #       print('Using REST API')
+
+  #      temp = pd.DataFrame(dailyprices).set_index('ticker').sort_index()
+
+        url = 'https://g324209f0c2c559-db202112160000.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/api/insert/{}/{}/{}'
 
         for i, item in enumerate(data):
-            args = (ticker, item[0], item[1])
-            self.cursor.execute(sql, args)
 
-        print(f"Row added:{i}")
-
-        self.conn.commit()
+            st.progress(i)
+            
+            uslstr = url.format(ticker, item[0], item[1])
+            response = requests.post(urlstr) 
+            print(response.status_code)
 
         
