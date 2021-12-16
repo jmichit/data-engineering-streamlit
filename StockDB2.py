@@ -131,7 +131,10 @@ class StockDB2():
 
         url = "https://g324209f0c2c559-db202112160000.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/api/get_daily_prices/{}/{}/{}"
 
-        urlstr = url.format(ticker, start_date, end_date)
+        startdate = start_date.strftime('%Y-%m-%d')
+        enddate = end_date.strftime('%Y-%m-%d')
+
+        urlstr = url.format(ticker, startdate, enddate)
 
         response = requests.get(urlstr)
 
