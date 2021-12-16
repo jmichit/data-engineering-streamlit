@@ -48,9 +48,9 @@ class StocksAPI():
 
         data  = response.json()
 
-        fname = 'compact-' + ticker + '.pkl'
-        with open(fname, 'wb') as file:
-            pkl.dump(data, file )
+        # fname = 'compact-' + ticker + '.pkl'
+        # with open(fname, 'wb') as file:
+        #     pkl.dump(data, file )
 
         dailyprices = data['Time Series (Daily)']
 
