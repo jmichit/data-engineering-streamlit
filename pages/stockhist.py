@@ -13,13 +13,31 @@ from Accounts import Account
 def app():
     col1, col2 = st.columns([1,3])
 
-    datemin = datetime.date(2000,1,4)
-    datemax = datetime.date(2021,12,1)
+    # datemin = datetime.date(2000,1,4)
+    # datemax = datetime.date(2021,12,1)
+
+
+    # ticker = col1.text_input("Ticker", value='MSFT')
+
+    db = StockDB('stocks.db')
+    stockinfo = db.db_summary()
+    db.close()
+    
+    available_tickers = tuple(stockinfo.index)
+
+    ticker =  col1.selectbox('Ticker', available_tickers)
+
+    datemin = datetime.date(pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).year,
+                            pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).month,
+                            pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).day)
+
+    datemax = datetime.date(pd.to_datetime(stockinfo.loc[ticker, 'Max Date']).year,
+                            pd.to_datetime(stockinfo.loc[ticker, 'Max Date']).month,
+                            pd.to_datetime(stockinfo.loc[ticker, 'Max Date']).day)
+
 
     startdate = col1.date_input('Start Date', min_value=datemin, max_value=datemax, value=datetime.date(2021,1,1)) 
     enddate = col1.date_input('End Date', min_value=datemin, max_value=datemax, value=datetime.date(2021, 1, 31)) 
-
-    ticker = col1.text_input("Ticker", value='MSFT')
 
     balance = col1.text_input("Balance", value= 10000)
 

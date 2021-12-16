@@ -48,7 +48,7 @@ def app():
         db = StockDB('stocks.db')
         sa = StocksAPI()
 
-        fetch_and_load_daily(db, sa, ticker, outputsize='compact')
+        fetch_and_load_daily(db, sa, ticker, outputsize='full')
 
         db.close()
 
