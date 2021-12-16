@@ -67,6 +67,8 @@ def app():
     df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
     # db.close()
 
+    print(df)
+
     account = Account(balance)
 
     #df.set_index('Date')
@@ -151,6 +153,6 @@ def app():
 
     st.table(signals)
 
-    p_and_l = float(signals.iloc[-1,3]) - float(signals.iloc[0,3])
+    #p_and_l = float(signals.iloc[-1,3]) - float(signals.iloc[0,3])
 
     st.text(f"Buy and Hold P&L ${round(p_and_l,2)}")
