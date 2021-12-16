@@ -210,9 +210,10 @@ class StockDB2():
 
         url = 'https://g324209f0c2c559-db202112160000.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/api/insert/{}/{}/{}'
 
+        placeholder2 = st.empty()
         for i, item in enumerate(data):
 
-            st.progress(i)
+            placeholder2.progress(i)
 
             urlstr = url.format(ticker, item[0], item[1])
             response = requests.post(urlstr) 

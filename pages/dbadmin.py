@@ -53,11 +53,11 @@ def app():
         #db = StockDB('stocks.db')
         sa = StocksAPI()
 
-        fetch_and_load_daily(db2, sa, ticker ) # outputsize='full')
+        num = fetch_and_load_daily(db2, sa, ticker ) # outputsize='full')
 
         # db.close()
 
-        st.success("Rows loaded.")
+        st.success(f"{num} rows loaded.")
         st.balloons()
         
         # db = StockDB('stocks.db')
