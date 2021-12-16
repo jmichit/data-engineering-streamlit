@@ -32,16 +32,29 @@ def app():
 
     ticker =  col1.selectbox('Ticker', available_tickers,)
 
-    datemin = datetime.date(pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).year,
-                            pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).month,
-                            pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).day)
+    # datemin = datetime.date(pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).year,
+    #                         pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).month,
+    #                         pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).day)
 
-    datemax = datetime.date(pd.to_datetime(stockinfo.loc[ticker, 'Max Date']).year,
-                            pd.to_datetime(stockinfo.loc[ticker, 'Max Date']).month,
-                            pd.to_datetime(stockinfo.loc[ticker, 'Max Date']).day)
+    # datemax = datetime.date(pd.to_datetime(stockinfo.loc[ticker, 'Max Date']).year,
+    #                         pd.to_datetime(stockinfo.loc[ticker, 'Max Date']).month,
+    #                         pd.to_datetime(stockinfo.loc[ticker, 'Max Date']).day)
 
 
+    datemin = datetime.date(pd.to_datetime(stockinfo.loc[ticker, 'mindate']).year,
+                            pd.to_datetime(stockinfo.loc[ticker, 'mindate']).month,
+                            pd.to_datetime(stockinfo.loc[ticker, 'mindate']).day)
+
+    datemax = datetime.date(pd.to_datetime(stockinfo.loc[ticker, 'maxdate']).year,
+                            pd.to_datetime(stockinfo.loc[ticker, 'maxdate']).month,
+                            pd.to_datetime(stockinfo.loc[ticker, 'maxdate']).day)
+
+
+
+    col1.text(f"Earliest Date: {datemin}")
     startdate = col1.date_input('Start Date', min_value=datemin, max_value=datemax, value=datetime.date(2021,1,1)) 
+
+    col1.text(f"Latest Date: {datemax}")
     enddate = col1.date_input('End Date', min_value=datemin, max_value=datemax, value=datetime.date(2021, 1, 31)) 
 
     balance = col1.text_input("Balance", value= 10000)
