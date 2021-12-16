@@ -50,6 +50,7 @@ class StockDB2():
         self.cursor.execute(sql)
         self.conn.commit()
 
+    @st.cache
     def db_summary(self):
         # sql = """
         # select ticker, count(*), max(close), min(close),
