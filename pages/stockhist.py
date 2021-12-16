@@ -30,7 +30,7 @@ def app():
 
     available_tickers = list(stockinfo.index)
 
-    ticker =  col1.selectbox('Ticker', available_tickers,)
+    ticker =  col1.selectbox('Ticker', available_tickers)
 
     # datemin = datetime.date(pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).year,
     #                         pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).month,
@@ -49,8 +49,12 @@ def app():
                             pd.to_datetime(stockinfo.loc[ticker, 'maxdate']).month,
                             pd.to_datetime(stockinfo.loc[ticker, 'maxdate']).day)
 
-    defaultmin = max(datemin, datetime.date(2021, 1, 1))
-    defaultmax = min(datemax, datetime.date(2021, 1, 31))
+    # defaultmin = min(datemin, datetime.date(2021, 10, 1))
+    # defaultmax = min(datemax, datetime.date(2021, 10, 31))
+    
+    defaultmin = datetime.date(2021, 10, 1)
+    defaultmax = datetime.date(2021, 10, 31)
+
 
     startdate = col1.date_input('Start Date', min_value=datemin, max_value=datemax, value=defaultmin) 
     col1.text(f"Earliest Date: {datemin}")
