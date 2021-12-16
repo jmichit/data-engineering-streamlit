@@ -13,7 +13,7 @@ from StockDB2 import StockDB2
 from Accounts import Account
 
 def app():
-    col1, col2 = st.columns([1,3])
+    col1, col2 = st.columns([2,2])
 
     # datemin = datetime.date(2000,1,4)
     # datemax = datetime.date(2021,12,1)
@@ -49,13 +49,14 @@ def app():
                             pd.to_datetime(stockinfo.loc[ticker, 'maxdate']).month,
                             pd.to_datetime(stockinfo.loc[ticker, 'maxdate']).day)
 
+    defaultmin = max(datemin, datetime.date(2021, 1, 1))
+    defaultmax = min(datemax, datetime.date(2021, 1, 31))
 
-
+    startdate = col1.date_input('Start Date', min_value=datemin, max_value=datemax, value=defaultmin) 
     col1.text(f"Earliest Date: {datemin}")
-    startdate = col1.date_input('Start Date', min_value=datemin, max_value=datemax, value=datetime.date(2021,1,1)) 
 
+    enddate = col1.date_input('End Date', min_value=datemin, max_value=datemax, value=defaultmax) 
     col1.text(f"Latest Date: {datemax}")
-    enddate = col1.date_input('End Date', min_value=datemin, max_value=datemax, value=datetime.date(2021, 1, 31)) 
 
     balance = col1.text_input("Balance", value= 10000)
 
