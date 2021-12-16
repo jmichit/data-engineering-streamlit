@@ -25,7 +25,8 @@ def app():
 
     db.close()
 
-    st.table(table)
+    placeholder = st.empty()
+    placeholder.table(table)
 
     st.write("Add security:")
 
@@ -54,6 +55,15 @@ def app():
 
         st.success("Rows loaded.")
         st.balloons()
+        
+        db = StockDB('stocks.db')
+    
+        table = db.db_summary()
+
+        placeholder.table(table)
+
+        db.close()
+        
 
     # expander = st.expander("See all records")
     # with expander:

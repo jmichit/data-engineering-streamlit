@@ -25,7 +25,7 @@ def app():
 
     available_tickers = list(stockinfo.index)
 
-    ticker =  col1.selectbox('Ticker', available_tickers)
+    ticker =  col1.selectbox('Ticker', available_tickers,)
 
     datemin = datetime.date(pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).year,
                             pd.to_datetime(stockinfo.loc[ticker, 'Min Date']).month,
@@ -40,7 +40,6 @@ def app():
     enddate = col1.date_input('End Date', min_value=datemin, max_value=datemax, value=datetime.date(2021, 1, 31)) 
 
     balance = col1.text_input("Balance", value= 10000)
-
 
     fig, axis = plt.subplots()
 
