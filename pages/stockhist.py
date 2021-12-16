@@ -22,8 +22,8 @@ def app():
     db = StockDB('stocks.db')
     stockinfo = db.db_summary()
     db.close()
-    
-    available_tickers = tuple(stockinfo.index)
+
+    available_tickers = list(stockinfo.index)
 
     ticker =  col1.selectbox('Ticker', available_tickers)
 
