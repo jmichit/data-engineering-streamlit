@@ -8,6 +8,8 @@ import pandas as pd
 import datetime
 
 from StockDB import StockDB 
+from StockDB2 import StockDB2 
+
 from Accounts import Account
 
 def app():
@@ -19,9 +21,12 @@ def app():
 
     # ticker = col1.text_input("Ticker", value='MSFT')
 
-    db = StockDB('stocks.db')
-    stockinfo = db.db_summary()
-    db.close()
+    # db = StockDB('stocks.db')
+
+    db2 = StockDB()
+    stockinfo = db2.db_summary()
+   
+    #db.close()
 
     available_tickers = list(stockinfo.index)
 
@@ -43,9 +48,10 @@ def app():
 
     fig, axis = plt.subplots()
 
-    db = StockDB("stocks.db")
-    df = db.get_stock_prices_date_range(ticker, startdate, enddate)
-    db.close()
+    # db = StockDB("stocks.db")
+    # df = db.get_stock_prices_date_range(ticker, startdate, enddate)
+    df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
+    # db.close()
 
     account = Account(balance)
 

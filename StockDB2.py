@@ -108,19 +108,53 @@ class StockDB2():
         return pd.DataFrame(x, columns = columns) 
 
     def get_stock_prices_date_range(self, ticker, start_date, end_date):
-        sql = """
-        select date, close
-        from prices
-        where ticker = ?
-        and date between ? and ?
-        order by date
-        """
-        args= (ticker, start_date, end_date)
-        self.cursor.execute(sql, args)
-        x = self.cursor.fetchall()
+        # sql = """
+        # select date, close
+        # from prices
+        # where ticker = ?
+        # and date between ? and ?
+        # order by date
+        # """
+        # args= (ticker, start_date, end_date)
+        # self.cursor.execute(sql, args)
+        # x = self.cursor.fetchall()
 
-        columns = ['Date', 'Price']
-        return pd.DataFrame(x, columns = columns) 
+        # columns = ['Date', 'Price']
+        # return pd.DataFrame(x, columns = columns) 
+
+        # url = "https://g324209f0c2c559-db202112160000.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/api/get_daily_prices/{}/{}/{}"
+
+        # urlstr = url.format(ticker, start_date, end_date)
+
+        # columns = ['Date', 'Price']
+        # return pd.DataFrame(x, columns = columns) 
+
+        url = "https://g324209f0c2c559-db202112160000.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/api/get_daily_prices/{}/{}/{}"
+
+        urlstr = url.format(ticker, start_date, end_date)
+
+        response = requests.get(urlstr)
+
+        json = response.json()
+
+        alldata = json['items']
+
+        while json['hasMore']:
+            for link in json['links']:
+                if link['rel'] == 'next':
+                    url_more = link['href']
+                    break
+            res = requests.get(url_more)
+            json = res.json()
+            data = json['items']    
+            alldata.extend(data)
+
+        return pd.DataFrame(alldata)
+
+
+
+
+
 
     def entries(self, ticker, startdate, enddate):
         sql = """
