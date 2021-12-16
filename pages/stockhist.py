@@ -129,7 +129,11 @@ def app():
     axis.set_xticks(indicies)
     axis.set_xticklabels(df.iloc[indicies]['Date'],rotation=90)
 
-    signals = Buy_and_hold(df)
+    #signals = Buy_and_hold(df)
+
+    signals = df.copy()
+    signals['Action'] = ''
+    
 
     #when to buy
     buysignals = signals[signals['Action']=='Buy']
