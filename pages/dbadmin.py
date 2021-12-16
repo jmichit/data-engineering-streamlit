@@ -9,7 +9,7 @@ import datetime
 
 
 from StockDB2 import StockDB2 
-from StockDB import StockDB 
+#from StockDB import StockDB 
 from StockAPI import StocksAPI
 from Accounts import Account
 
@@ -21,13 +21,13 @@ def app():
 
     st.title('DBAdmin')
 
-    db = StockDB('stocks.db')
+    #db = StockDB('stocks.db')
     
     db2 = StockDB2()
 
     table = db2.db_summary()
 
-    db.close()
+    #db.close()
 
     placeholder = st.empty()
     placeholder.table(table)
@@ -50,23 +50,23 @@ def app():
 
 
     if submitted:
-        db = StockDB('stocks.db')
+        #db = StockDB('stocks.db')
         sa = StocksAPI()
 
-        fetch_and_load_daily(db, sa, ticker ) # outputsize='full')
+        fetch_and_load_daily(db2, sa, ticker ) # outputsize='full')
 
-        db.close()
+        # db.close()
 
         st.success("Rows loaded.")
         st.balloons()
         
-        db = StockDB('stocks.db')
+        # db = StockDB('stocks.db')
     
-        table = db.db_summary()
+        table = db2.db_summary()
 
         placeholder.table(table)
 
-        db.close()
+        # db.close()
         
 
     # expander = st.expander("See all records")
