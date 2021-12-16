@@ -27,15 +27,15 @@ class StockDB2():
 #         else:
 #             print("Database already closed")
             
-    def close(self):
-        if self.conn:
-            try:
-                self.conn.close()
-                print('Database closed' + str(datetime.datetime.now()))
-            except Exception as e:
-                print(f'Error: {e}')
-        else:
-            print("Database already closed")
+    # def close(self):
+    #     if self.conn:
+    #         try:
+    #             self.conn.close()
+    #             print('Database closed' + str(datetime.datetime.now()))
+    #         except Exception as e:
+    #             print(f'Error: {e}')
+    #     else:
+    #         print("Database already closed")
     
     def delete_ticker(self, ticker):
         sql = "delete from prices where ticker = ?"
@@ -70,7 +70,8 @@ class StockDB2():
         #           'apikey': self.apikey}
 
         # response = requests.get(url, params=params)
-        response = requests.get(url, params=params)
+        
+        response = requests.get(url) 
 
         data  = response.json()
 
