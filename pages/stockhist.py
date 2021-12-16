@@ -49,11 +49,11 @@ def app():
                             pd.to_datetime(stockinfo.loc[ticker, 'maxdate']).month,
                             pd.to_datetime(stockinfo.loc[ticker, 'maxdate']).day)
 
-    # defaultmin = min(datemin, datetime.date(2021, 10, 1))
-    # defaultmax = min(datemax, datetime.date(2021, 10, 31))
+    defaultmin = max(datemin, datetime.date(2021, 10, 1))
+    defaultmax = min(datemax, datetime.date(2021, 10, 31))
     
-    defaultmin = datetime.date(2021, 10, 1)
-    defaultmax = datetime.date(2021, 10, 31)
+    #defaultmin = datetime.date(2021, 10, 1)
+    #defaultmax = datetime.date(2021, 10, 31)
 
 
     startdate = col1.date_input('Start Date', min_value=datemin, max_value=datemax, value=defaultmin) 
