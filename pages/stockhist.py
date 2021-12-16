@@ -23,7 +23,7 @@ def app():
 
     # db = StockDB('stocks.db')
 
-    db2 = StockDB()
+    db2 = StockDB2()
     stockinfo = db2.db_summary()
    
     #db.close()
