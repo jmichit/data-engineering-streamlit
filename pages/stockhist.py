@@ -139,13 +139,15 @@ def app():
 
     #when to buy
     buysignals = signals[signals['Action']=='Buy']
-    sns.scatterplot(x='Date', y='Price', marker=10, data=buysignals, ax=axis, palette=['green'], label='Entries' )
+    if len(buysignals) > 0:
+        sns.scatterplot(x='Date', y='Price', marker=10, data=buysignals, ax=axis, palette=['green'], label='Entries' )
 
     #when to sell
     sellsignals = signals[signals['Action']=='Sell']
-    sns.scatterplot(x='Date', y='Price', marker=11, data=sellsignals, ax=axis, palette=['red'], label='Exits' )
+    if len(sellsignals) > 0:
+        sns.scatterplot(x='Date', y='Price', marker=11, data=sellsignals, ax=axis, palette=['red'], label='Exits' )
 
-    st.text("Strategy: Buy & Hold")
+    #st.text("Strategy: Buy & Hold")
 
     st.pyplot(fig)
 
@@ -155,4 +157,4 @@ def app():
 
     #p_and_l = float(signals.iloc[-1,3]) - float(signals.iloc[0,3])
 
-    st.text(f"Buy and Hold P&L ${round(p_and_l,2)}")
+    #st.text(f"Buy and Hold P&L ${round(p_and_l,2)}")
