@@ -33,9 +33,10 @@ def app():
     placeholder = st.empty()
     placeholder.table(table)
 
-    st.write("Add security:")
-
     col1, col2 = st.columns([2,2])
+
+
+    col1.write("Add security:")
 
     #ADD Security form and action 
     form1 = col1.form(key="addsecurity")
@@ -48,7 +49,7 @@ def app():
         # cols = st.columns(2)
         # date = cols[0].date_input("Bug date occurrence:")
         # bug_severity = cols[1].slider("Bug severity:", 1, 5, 2)
-        actionAdd = st.form_submit_button(label="LOAD IT")
+        actionAdd = st.form_submit_button(label="LOAD")
         st.write('WARNING: This could take awhile.')
 
     if actionAdd:
@@ -70,9 +71,10 @@ def app():
         
     #DELETE Security form and action 
     
+    col2.write('Delete Security')
     form2 = col2.form(key="deletesecurity")
     with form2:
-        ticker = col2.selectbox('Ticker', available_tickers)
+        ticker = st.selectbox('Remove Ticker', available_tickers)
         # bug_type = cols[1].selectbox(
         #     "Bug type:", ["Front-end", "Back-end", "Data related", "404"], index=2
         # )
@@ -80,17 +82,17 @@ def app():
         # cols = st.columns(2)
         # date = cols[0].date_input("Bug date occurrence:")
         # bug_severity = cols[1].slider("Bug severity:", 1, 5, 2)
-        actionDelete = col2.form_submit_button(label="Submit")
+        actionDelete = st.form_submit_button(label="REMOVE")
 
     if actionDelete:
         #db = StockDB('stocks.db')
-        sa = StocksAPI()
+        #sa = StocksAPI()
 
         num = db2.delete_ticker(db2, ticker ) 
 
         # db.close()
 
-        st.success(f"{num} rows loaded.")
+        st.success(f"{ticker} deleted.")
         st.balloons()
         
         # db = StockDB('stocks.db')

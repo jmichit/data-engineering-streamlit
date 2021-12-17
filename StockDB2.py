@@ -55,7 +55,6 @@ class StockDB2():
         self.cursor.execute(sql)
         self.conn.commit()
 
-    @st.cache
     def db_summary(self):
         # sql = """
         # select ticker, count(*), max(close), min(close),
@@ -142,11 +141,13 @@ class StockDB2():
 
         urlstr = url.format(ticker, startdate, enddate)
 
+        print(urlstr)
         response = requests.get(urlstr)
 
         json = response.json()
 
         alldata = json['items']
+        
 
         while json['hasMore']:
             for link in json['links']:

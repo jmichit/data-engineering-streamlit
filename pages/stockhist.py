@@ -73,6 +73,8 @@ def app():
 
     st.dataframe(df)
 
+    st.stop()
+
     account = Account(balance)
 
     #df.set_index('Date')
