@@ -85,4 +85,8 @@ def app():
 
         st.success(f"{indicator} created.")
         st.balloons()
+
+        indicators = db2.get_indicators()
+        
+        placeholder.table(indicators)
             
