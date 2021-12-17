@@ -26,7 +26,7 @@ def app():
     db2 = StockDB2()
 
     table = db2.db_summary()
-    available_tickers = list(stockinfo.index)
+    available_tickers = list(table.index)
 
     #db.close()
 
