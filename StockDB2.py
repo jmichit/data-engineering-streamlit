@@ -132,7 +132,7 @@ class StockDB2():
 
         if len(indicators) == 0:
             return pd.DataFrame()
-        elseL
+        else:
             temp = pd.DataFrame(indicators)
 
             temp.columns = ['Name', 'N-day MA']
