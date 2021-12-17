@@ -1,16 +1,20 @@
 import requests
 
 class StocksAPI():
-    #Free API key for Alpha Vantage
-    
-    def __init__(self):
-        self.apikey ='6XTDHKAU1QFL7M38'
+    """
+    Collection of functions to pull equities data from Alpha Vantage
+
+    The API requires a key - ALPHA_VANTAGE_API_KEY - defined as a "secret" setting in Streamlit
+    """
     
     def get_daily_series(self, ticker, outputsize='compact'):
         """
-        Get daily series of prices from Alpha Vantage 
+        Retrieves daily stock data using the TIME_SERIES_DAILY API
 
-        Head of response.json:  
+        https://www.alphavantage.co/documentation/
+
+        Response:
+
         {
         "Meta Data": {
             "1. Information": "Daily Prices (open, high, low, close) and Volumes",
@@ -35,6 +39,7 @@ class StocksAPI():
             }, ... 
          }
         }
+
         """
 
         url = 'https://www.alphavantage.co/query'
@@ -42,7 +47,7 @@ class StocksAPI():
         params = {'function':'TIME_SERIES_DAILY',
                   'symbol': ticker,
                   'outputsize' : outputsize,    
-                  'apikey': self.apikey}
+                  'apikey': ALPHA_VANTAGE_API_KEY}
 
         response = requests.get(url, params=params)
 
