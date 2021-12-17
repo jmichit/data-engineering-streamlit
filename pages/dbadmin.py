@@ -1,11 +1,9 @@
 import streamlit as st
 
 import pandas as pd
-import datetime
 
 from StockDB2 import StockDB2 
 from StockAPI import StocksAPI
-from Accounts import Account
 
 def fetch_and_load_daily(db, api, ticker, outputsize="compact"):
     temp = api.get_daily_series(ticker, outputsize)
@@ -21,19 +19,18 @@ def app():
 
     available_tickers = list(table.index)
 
-    placeholder = st.empty()
-
+    placeholder1 = st.empty()
     st.subheader('Securities')    
-    placeholder.table(table)
+    placeholder1.table(table)
 
+    placeholder2 = st.empty()
     st.subheader('Indicators')
-    placeholder.table(indicators)
+    placeholder2.table(indicators)
 
     col1, col2 = st.columns([2,2])
 
-    col1.write("Add:")
-
     #ADD Security form and action 
+    col1.write("Add:")
     form1 = col1.form(key="addsecurity")
     with form1:
         ticker = st.text_input("Add Ticker:")
@@ -46,7 +43,7 @@ def app():
         num = fetch_and_load_daily(db2, sa, ticker ) # outputsize='full')
 
         table = db2.db_summary()
-        placeholder.table(table)
+        placeholder1.table(table)
 
         st.success(f"{num} rows loaded.")
         st.balloons()
@@ -67,7 +64,7 @@ def app():
             
         table = db2.db_summary()
 
-        placeholder.table(table)
+        placeholder1.table(table)
 
 
     #ADD indicator form and action 
@@ -88,5 +85,5 @@ def app():
 
         indicators = db2.get_indicators()
         
-        placeholder.table(indicators)
+        placeholder2.table(indicators)
             

@@ -79,16 +79,40 @@ def app():
     #df.set_index('Date')
 
     def Buy_and_hold(df):
-        df['Action'] = ''
-        df.iloc[0,2] = 'Buy'
-        df.iloc[-1,2] = 'Sell'
-        currprice = int(df.iloc[0,1])
-        print(currprice)
+        """ 
+        Purchase on the first day, sell on the last
+        """
+        df2 = df.copy()
+        df2.loc[df2['Date'] == df2['Date'].min(), 'Action'] = 'Buy'
+        df2.loc[df2['Date'] == df2['Date'].max(), 'Action'] = 'Sell'
+        return df2
 
-        account.maxpurchase(ticker, currprice)
+    def transactions(account, df):
+        df['Account Value'] = -1
+        df['Positions'] = ''
+
         for i, row in df.iterrows():
-        #tickervals = {ticker : curprice}
-            df['Acct Value'] =  df['Price'].apply(lambda x: account.mktval({ticker: x}))
+            if row['Action'] == 'Buy':
+                account.maxpurchase(ticker, row['Price'])
+            elif row['Action'] == 'Sell':
+                account.sellall(ticker, row['Price'])   
+            else:
+                #No change to account
+                pass
+            row['Position'] = account.list_positions()
+
+        return df
+    
+        # df['Action'] = ''
+        # df.iloc[0,2] = 'Buy'
+        # df.iloc[-1,2] = 'Sell'
+        # currprice = int(df.iloc[0,1])
+        # print(currprice)
+
+        # account.maxpurchase(ticker, currprice)
+        # for i, row in df.iterrows():
+        # #tickervals = {ticker : curprice}
+        #     df['Acct Value'] =  df['Price'].apply(lambda x: account.mktval({ticker: x}))
 
     
     #    # df['Cash'] = -999
