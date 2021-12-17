@@ -72,7 +72,7 @@ def app():
     
     form2 = col2.form(key="deletesecurity")
     with form2:
-        ticker = col1.selectbox('Ticker', available_tickers)
+        ticker = col2.selectbox('Ticker', available_tickers)
         # bug_type = cols[1].selectbox(
         #     "Bug type:", ["Front-end", "Back-end", "Data related", "404"], index=2
         # )
@@ -80,14 +80,14 @@ def app():
         # cols = st.columns(2)
         # date = cols[0].date_input("Bug date occurrence:")
         # bug_severity = cols[1].slider("Bug severity:", 1, 5, 2)
-        actionDelete = st.form_submit_button(label="Submit")
+        actionDelete = col2.form_submit_button(label="Submit")
 
     if actionDelete:
         #db = StockDB('stocks.db')
         sa = StocksAPI()
 
         num = db2.delete_ticker(db2, ticker ) 
-        
+
         # db.close()
 
         st.success(f"{num} rows loaded.")
