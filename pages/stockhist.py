@@ -83,13 +83,14 @@ def app():
         Purchase on the first day, sell on the last
         """
         df2 = df.copy()
+        df2['Action'] = ''
         df2.loc[df2['Date'] == df2['Date'].min(), 'Action'] = 'Buy'
         df2.loc[df2['Date'] == df2['Date'].max(), 'Action'] = 'Sell'
         return df2
 
     def transactions(account, df):
         df['Account Value'] = -1
-        df['Positions'] = []
+        df['Positions'] = ""
 
         for i, row in df.iterrows():
             if row['Action'] == 'Buy':

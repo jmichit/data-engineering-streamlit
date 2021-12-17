@@ -61,7 +61,7 @@ class Account:
         temp.append(('CASH', self.cash))
         for k in self.equities.keys():
             temp.append(self.equities[k].values())  
-        return temp
+        return " ".join(temp)
 
     def mktval(self, mktvalues):
         total = self.cash
