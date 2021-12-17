@@ -66,7 +66,7 @@ class Account:
 
     def list_positions(self):
         temp = []
-        pos = 'CASH+' + str(round(self.cash),2)
+        pos = 'CASH+' + str(round(self.cash,2))
         temp.append(pos)
         for k in self.equities.keys():
             pos = self.equities[k].to_string()
@@ -79,4 +79,3 @@ class Account:
             if k in mktvalues:
                 total += v.quantity * mktvalues[k]
         return total
-        
