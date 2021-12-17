@@ -27,7 +27,7 @@ def app():
     placeholder.table(table)
 
     st.subheader('Indicators')
-    placeholder.table(table)
+    placeholder.table(indicators)
 
     col1, col2 = st.columns([2,2])
 
