@@ -47,7 +47,6 @@ class StockDB2():
         urlstr = url.format(ticker)
 
         response = requests.post(urlstr) 
-        print(response.json())
         print(response.status_code)
 
     def clear_db(self):
@@ -263,6 +262,6 @@ class StockDB2():
             response = requests.post(urlstr) 
             print(response.status_code)
 
-        return i
+        return i + 1
 
         

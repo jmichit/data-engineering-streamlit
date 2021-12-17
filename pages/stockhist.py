@@ -126,7 +126,7 @@ def app():
     # sns.lineplot(x='Date',y='20 day Max Price',  linestyle = '--', data=signals, ax=axis, label= '20 Day Max Price')
 
     #axis.legend(['price', '10 day Min' , '20 day Max'])
-    axis.legend()
+    plt.legend()
 
 
 
