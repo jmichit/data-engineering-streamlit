@@ -40,7 +40,7 @@ def app():
     #ADD Security form and action 
     form1 = col1.form(key="addsecurity")
     with form1:
-        ticker = col1.text_input("Add Ticker:")
+        ticker = st.text_input("Add Ticker:")
         # bug_type = cols[1].selectbox(
         #     "Bug type:", ["Front-end", "Back-end", "Data related", "404"], index=2
         # )
@@ -48,8 +48,8 @@ def app():
         # cols = st.columns(2)
         # date = cols[0].date_input("Bug date occurrence:")
         # bug_severity = cols[1].slider("Bug severity:", 1, 5, 2)
-        actionAdd = col1.form_submit_button(label="LOAD IT")
-        col1.write('WARNING: This could take awhile.')
+        actionAdd = st.form_submit_button(label="LOAD IT")
+        st.write('WARNING: This could take awhile.')
 
     if actionAdd:
         #db = StockDB('stocks.db')
