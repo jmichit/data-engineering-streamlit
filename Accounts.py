@@ -15,6 +15,9 @@ class Position:
     def values(self):
         return self.symbol, self.quantity
 
+    def to_string(self):
+        return self.symbol + '+' + str(self.quantity)
+    
 class Account:
         
     def __init__(self, balance=1):
@@ -23,7 +26,7 @@ class Account:
     
     def purchase(self, ticker, quantity, marketprice):
         print('purchase')
-        if self.cash > quantity * marketprice:    
+        if self.cash >= quantity * marketprice:    
             if ticker in self.equities:
                 self.equities[ticker].quantity += quantity
             else:
@@ -58,9 +61,11 @@ class Account:
 
     def list_positions(self):
         temp = []
-        temp.append(('CASH', self.cash))
+        pos = 'CASH+' + str(self.cash)
+        temp.append(pos)
         for k in self.equities.keys():
-            temp.append(self.equities[k].values())  
+            pos = self.equities[k].to_string()
+            temp.append(pos)  
         return " ".join(temp)
 
     def mktval(self, mktvalues):
