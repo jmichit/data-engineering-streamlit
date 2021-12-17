@@ -71,7 +71,7 @@ def app():
     df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
     # db.close()
 
-    st.dataframe(df)
+    #st.dataframe(df)
 
 
     account = Account(balance)
@@ -146,7 +146,6 @@ def app():
     signals = df.copy()
     signals['Action'] = ''
     
-
     #when to buy
     buysignals = signals[signals['Action']=='Buy']
     if len(buysignals) > 0:
@@ -160,8 +159,6 @@ def app():
     #st.text("Strategy: Buy & Hold")
 
     st.pyplot(fig)
-
-
 
     st.table(signals)
 

@@ -5,7 +5,7 @@ from PIL import Image
 def app():
     st.title('Stock Trading momentum App')
 
-    col1, col2 = st.columns(1,1)
+    col1, col2 = st.columns([1,1])
 
     image = Image.open('images/pexels-burak-kebapci-187041.jpg')
     col2.image(image, caption = "Photo by Burak Kebapci from Pexels", use_column_width='auto')
