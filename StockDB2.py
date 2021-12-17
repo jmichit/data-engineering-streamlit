@@ -158,7 +158,10 @@ class StockDB2():
             data = json['items']    
             alldata.extend(data)
 
-        return pd.DataFrame(alldata, columns=['Date', 'Price'])
+        temp = pd.DataFrame(alldata)
+        temp.columns = ['Date', 'Price']
+
+        return temp
 
 
 
