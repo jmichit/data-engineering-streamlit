@@ -64,7 +64,7 @@ def app():
 
     balance = col1.text_input("Balance", value= 10000)
 
-    fig, axis = plt.subplots()
+    #fig, axis = plt.subplots()
 
     # db = StockDB("stocks.db")
     # df = db.get_stock_prices_date_range(ticker, startdate, enddate)
@@ -118,7 +118,8 @@ def app():
 
     #signals = db.entries(ticker, startdate, enddate)
 
-    sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
+    # sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
+    sns.lineplot(x='Date', y='Price', data=df, label='Price')
 
     # sns.lineplot(x='Date', y='10 day Min Price', linestyle = "--", data=signals, ax=axis, label ='10 Day Min Price')
 
@@ -133,8 +134,11 @@ def app():
 
     #if df['Date'].size() > 30:
     indicies = np.linspace(0, df['Date'].size, dtype=int, num=30,  endpoint=False)
-    axis.set_xticks(indicies)
-    axis.set_xticklabels(df.iloc[indicies]['Date'],rotation=90)
+    # axis.set_xticks(indicies)
+    # axis.set_xticklabels(df.iloc[indicies]['Date'],rotation=90)
+
+    plt.xticks(indicies)
+    plt.xlabel(df.iloc[indicies]['Date'],rotation=90)
 
     #signals = Buy_and_hold(df)
 

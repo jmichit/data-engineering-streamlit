@@ -15,7 +15,8 @@ from Accounts import Account
 
 def fetch_and_load_daily(db, api, ticker, outputsize="compact"):
     temp = api.get_daily_series(ticker, outputsize)
-    db.insert_daily_data(ticker, temp)
+    rows = db.insert_daily_data(ticker, temp)
+    return rows
 
 def app():
 
@@ -36,7 +37,7 @@ def app():
     col1, col2 = st.columns([2,2])
 
 
-    col1.write("Add security:")
+    col1.write("Add:")
 
     #ADD Security form and action 
     form1 = col1.form(key="addsecurity")
@@ -71,7 +72,7 @@ def app():
         
     #DELETE Security form and action 
     
-    col2.write('Delete Security')
+    col2.write('Delete:')
     form2 = col2.form(key="deletesecurity")
     with form2:
         ticker = st.selectbox('Remove Ticker', available_tickers)
@@ -88,7 +89,8 @@ def app():
         #db = StockDB('stocks.db')
         #sa = StocksAPI()
 
-        num = db2.delete_ticker(db2, ticker ) 
+        #num = db2.delete_ticker(ticker) 
+        db2.delete_ticker(ticker) 
 
         # db.close()
 

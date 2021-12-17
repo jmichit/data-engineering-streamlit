@@ -263,4 +263,6 @@ class StockDB2():
             response = requests.post(urlstr) 
             print(response.status_code)
 
+        return i
+
         
