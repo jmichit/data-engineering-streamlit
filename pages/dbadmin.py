@@ -1,15 +1,9 @@
 import streamlit as st
 
-import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
-
 import pandas as pd
 import datetime
 
-
 from StockDB2 import StockDB2 
-#from StockDB import StockDB 
 from StockAPI import StocksAPI
 from Accounts import Account
 
@@ -20,22 +14,22 @@ def fetch_and_load_daily(db, api, ticker, outputsize="compact"):
 
 def app():
 
-    st.title('DBAdmin')
-
-    #db = StockDB('stocks.db')
-    
     db2 = StockDB2()
 
     table = db2.db_summary()
+    indicators = db2.get_indicators()
+
     available_tickers = list(table.index)
 
-    #db.close()
-
     placeholder = st.empty()
+
+    st.subheader('Securities')    
+    placeholder.table(table)
+
+    st.subheader('Indicators')
     placeholder.table(table)
 
     col1, col2 = st.columns([2,2])
-
 
     col1.write("Add:")
 
@@ -43,23 +37,13 @@ def app():
     form1 = col1.form(key="addsecurity")
     with form1:
         ticker = st.text_input("Add Ticker:")
-        # bug_type = cols[1].selectbox(
-        #     "Bug type:", ["Front-end", "Back-end", "Data related", "404"], index=2
-        # )
-        # comment = st.text_area("Comment:")
-        # cols = st.columns(2)
-        # date = cols[0].date_input("Bug date occurrence:")
-        # bug_severity = cols[1].slider("Bug severity:", 1, 5, 2)
         actionAdd = st.form_submit_button(label="LOAD")
-        st.write('WARNING: This could take awhile.')
+        st.write('WARNING: This could take a while.')
 
     if actionAdd:
-        #db = StockDB('stocks.db')
         sa = StocksAPI()
 
         num = fetch_and_load_daily(db2, sa, ticker ) # outputsize='full')
-
-        # db.close()
 
         table = db2.db_summary()
         placeholder.table(table)
@@ -67,41 +51,38 @@ def app():
         st.success(f"{num} rows loaded.")
         st.balloons()
         
-        # db = StockDB('stocks.db'
-        # db.close()
         
     #DELETE Security form and action 
-    
     col2.write('Delete:')
     form2 = col2.form(key="deletesecurity")
     with form2:
         ticker = st.selectbox('Remove Ticker', available_tickers)
-        # bug_type = cols[1].selectbox(
-        #     "Bug type:", ["Front-end", "Back-end", "Data related", "404"], index=2
-        # )
-        # comment = st.text_area("Comment:")
-        # cols = st.columns(2)
-        # date = cols[0].date_input("Bug date occurrence:")
-        # bug_severity = cols[1].slider("Bug severity:", 1, 5, 2)
         actionDelete = st.form_submit_button(label="REMOVE")
 
     if actionDelete:
-        #db = StockDB('stocks.db')
-        #sa = StocksAPI()
-
-        #num = db2.delete_ticker(ticker) 
         db2.delete_ticker(ticker) 
-
-        # db.close()
 
         st.success(f"{ticker} deleted.")
         st.balloons()
-        
-        # db = StockDB('stocks.db')
-    
+            
         table = db2.db_summary()
 
         placeholder.table(table)
 
-        # db.close()
-        
+
+    #ADD indicator form and action 
+    form3 = st.form(key="addSMA")
+    with form3:
+        indicator = st.text_input("indicator")
+        days = st.text_input("# days")
+
+        actionAddIndicator = st.form_submit_button(label="CALC")
+        st.write('WARNING: This could take a while.')
+
+    if actionAddIndicator:
+        sa = StocksAPI()
+        db2.add_indicator(indicator, days)
+
+        st.success(f"{indicator} created.")
+        st.balloons()
+            

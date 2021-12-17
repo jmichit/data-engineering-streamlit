@@ -3,7 +3,8 @@ import streamlit as st
 from PIL import Image
 
 def app():
-    st.title('Stock Trading momentum App')
+    
+    #st.markdown("Goal of this app is to compare tr")
 
     col1, col2 = st.columns([1,1])
 

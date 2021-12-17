@@ -111,4 +111,28 @@ class StockDB2():
 
         return i + 1
 
+    def add_indicator(self, indicator, days):
+
+        url = 'https://g324209f0c2c559-db202112160000.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/api/indicator/{}/{}'
+
+     
+        urlstr = url.format(indicator, days)
+        response = requests.post(urlstr) 
+        print(response.status_code)
+
+    def get_indicators(self):
+
+        url = 'https://g324209f0c2c559-db202112160000.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/api/indicatorlist'
+
+        response = requests.get(url) 
         
+        data = response.json()
+
+        indicators = data['items']
+
+        temp = pd.DataFrame(dailyprices).set_index('name').sort_index()
+
+        temp.columns = ['Name', '?day MA']
+
+        return temp
+
