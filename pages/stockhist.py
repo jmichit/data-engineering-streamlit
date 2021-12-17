@@ -136,7 +136,7 @@ def app():
 
     #     account.sellall(ticker, curprice)
     
-        return df
+    #    return df
 
 
 
@@ -165,10 +165,12 @@ def app():
     # plt.xticks(indicies)
     # plt.xlabel(df.iloc[indicies]['Date'],rotation=90)
 
-    #signals = Buy_and_hold(df)
+    signals = Buy_and_hold(df)
 
-    signals = df.copy()
-    signals['Action'] = ''
+    signals = transactions(account, signals)
+
+    # signals = df.copy()
+    # signals['Action'] = ''
     
     #when to buy
     buysignals = signals[signals['Action']=='Buy']

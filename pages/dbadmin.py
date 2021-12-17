@@ -20,17 +20,17 @@ def app():
     available_tickers = list(table.index)
 
     placeholder1 = st.empty()
-    st.subheader('Securities')    
+    placeholder1.subheader('Securities')    
     placeholder1.table(table)
 
     placeholder2 = st.empty()
-    st.subheader('Indicators')
+    placeholder2.subheader('Indicators')
     placeholder2.table(indicators)
 
     col1, col2 = st.columns([2,2])
 
     #ADD Security form and action 
-    col1.write("Add:")
+    col1.write("Add Security:")
     form1 = col1.form(key="addsecurity")
     with form1:
         ticker = st.text_input("Add Ticker:")
@@ -50,7 +50,7 @@ def app():
         
         
     #DELETE Security form and action 
-    col2.write('Delete:')
+    col2.write('Delete Security:')
     form2 = col2.form(key="deletesecurity")
     with form2:
         ticker = st.selectbox('Remove Ticker', available_tickers)
@@ -67,7 +67,8 @@ def app():
         placeholder1.table(table)
 
 
-    #ADD indicator form and action 
+    #ADD indicator form and action
+    st.write('Add Indicator') 
     form3 = st.form(key="addSMA")
     with form3:
         indicator = st.text_input("indicator")
