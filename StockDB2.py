@@ -130,7 +130,7 @@ class StockDB2():
 
         indicators = data['items']
 
-        temp = pd.DataFrame(indicators).set_index('name').sort_index()
+        temp = pd.DataFrame(indicators)
 
         temp.columns = ['Name', 'N-day MA']
 
