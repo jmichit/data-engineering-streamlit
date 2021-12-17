@@ -40,7 +40,7 @@ class Account:
         print(self.cash)
         print(marketprice)
     
-        if self.cash > marketprice:   
+        if self.cash >= marketprice:   
             print('here') 
             amount_to_buy = math.floor(self.cash / marketprice)
             self.purchase(ticker, amount_to_buy, marketprice)
