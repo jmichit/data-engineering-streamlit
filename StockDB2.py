@@ -41,9 +41,14 @@ class StockDB2():
     
     def delete_ticker(self, ticker):
         sql = "delete from prices where ticker = ?"
-        args = (ticker,)
-        self.cursor.execute(sql, args)
-        self.conn.commit()
+
+        url = "https://g324209f0c2c559-db202112160000.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/api/delete/{}"
+
+        urlstr = url.format(ticker)
+
+        response = requests.post(urlstr) 
+        print(response.json())
+        print(response.status_code)
 
     def clear_db(self):
         sql = "delete from prices"
