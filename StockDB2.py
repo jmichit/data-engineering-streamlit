@@ -130,9 +130,12 @@ class StockDB2():
 
         indicators = data['items']
 
-        temp = pd.DataFrame(indicators)
+        if len(indicators) == 0:
+            return pd.DataFrame()
+        elseL
+            temp = pd.DataFrame(indicators)
 
-        temp.columns = ['Name', 'N-day MA']
+            temp.columns = ['Name', 'N-day MA']
 
-        return temp
+            return temp
 
