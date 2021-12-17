@@ -76,7 +76,8 @@ def app():
 
     account = Account(balance)
 
-    #df.set_index('Date')
+    df['Date'] = pd.to_datetime(df['Date'])
+    df.sort_values('Date')
 
     def Buy_and_hold(df):
         """ 
@@ -93,6 +94,8 @@ def app():
         df['Positions'] = ""
 
         for i, row in df.iterrows():
+            print(row['Action'])
+            print(row['Price'])
             if row['Action'] == 'Buy':
                 account.maxpurchase(ticker, row['Price'])
             elif row['Action'] == 'Sell':
