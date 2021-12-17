@@ -4,8 +4,10 @@ import math
 
 @dataclass
 class Position:
-    #Class for tracking individual stocks / cash
-    
+    """
+    Position is used in Account to track equity positions    
+    """
+
     symbol: str
     quantity: int
     
@@ -19,6 +21,9 @@ class Position:
         return self.symbol + '+' + str(self.quantity)
     
 class Account:
+    """
+    Account maintains a cash balance and securities purchased
+    """
         
     def __init__(self, balance=1):
         self.cash = float(balance)
@@ -61,7 +66,7 @@ class Account:
 
     def list_positions(self):
         temp = []
-        pos = 'CASH+' + str(self.cash)
+        pos = 'CASH+' + str(round(self.cash),2)
         temp.append(pos)
         for k in self.equities.keys():
             pos = self.equities[k].to_string()
@@ -74,5 +79,4 @@ class Account:
             if k in mktvalues:
                 total += v.quantity * mktvalues[k]
         return total
-
-
+        
