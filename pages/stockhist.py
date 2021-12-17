@@ -61,7 +61,7 @@ def app():
 
     def transactions(account, df):
         df['Account Value'] = account.cash
-        df['Positions'] = ""
+        df['Position'] = ""
 
         for i, row in df.iterrows():
             if row['Action'] == 'Buy':
@@ -71,8 +71,7 @@ def app():
             else:
                 #No change to account
                 pass
-            print('akdjflasjdfaslkdfj')
-            print(ticker)
+
             df.at[i, 'Account Value'] = account.mktval({ticker:row['Price']})
             df.at[i, 'Position'] = account.list_positions()
 
