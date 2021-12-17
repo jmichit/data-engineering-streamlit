@@ -138,7 +138,7 @@ def app():
     # axis.set_xticklabels(df.iloc[indicies]['Date'],rotation=90)
 
     plt.xticks(indicies)
-    plt.xlabel(df.iloc[indicies]['Date'],rotation=90)
+    #plt.xlabel(df.iloc[indicies]['Date'],rotation=90)
 
     #signals = Buy_and_hold(df)
 

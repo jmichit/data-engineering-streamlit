@@ -146,7 +146,7 @@ class StockDB2():
         json = response.json()
 
         alldata = json['items']
-        
+        print(alldata)
 
         while json['hasMore']:
             for link in json['links']:
