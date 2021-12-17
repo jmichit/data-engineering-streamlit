@@ -77,7 +77,7 @@ def app():
     account = Account(balance)
 
     df['Date'] = pd.to_datetime(df['Date'])
-    df.sort_values('Date')
+    df.sort_values('Date', inplace=True)
 
     def Buy_and_hold(df):
         """ 
