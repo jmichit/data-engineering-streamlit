@@ -79,7 +79,8 @@ def app():
 
     #signals = db.entries(ticker, startdate, enddate)
 
-    sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
+    #sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
+    axis.plot(df['Date'], df['Price'])
     axis.legend()
 
     indicies = np.linspace(0, df['Date'].size, dtype=int, num=30,  endpoint=False)
