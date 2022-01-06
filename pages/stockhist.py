@@ -44,7 +44,7 @@ def app():
 
     fig, axis = plt.subplots()
 
-    df = db2.get_stock_prices_date_range(ticker, startdate, enddate)ß
+    df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
 
     def get_prophet_forecast(ticker, startdate, enddate, days):
         """
