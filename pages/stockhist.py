@@ -44,10 +44,7 @@ def app():
 
     fig, axis = plt.subplots()
 
-    df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
-
-
-    ########
+    df = db2.get_stock_prices_date_range(ticker, startdate, enddate)ß
 
     def get_prophet_forecast(ticker, startdate, enddate, days):
         """
@@ -69,49 +66,8 @@ def app():
         forecast = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
         return forecast
 
-    forecast1 = get_prophet_forecast(ticker, startdate, enddate, 100)
+    #forecast1 = get_prophet_forecast(ticker, startdate, enddate, 100)
     forecast2 = get_prophet_forecast(ticker, startdate, enddate, 200)
-
-
-    # p1 = Prophet()
-
-    # #forecast length = 200 days
-    # forecast_startdate = startdate - datetime.timedelta(days=200)
-
-    # prior = db2.get_stock_prices_date_range(ticker, forecast_startdate, startdate)
-    # prior.columns = ['ds', 'y']
-    # prior['ds'] = pd.to_datetime(prior['ds'])
-    # p1.fit(prior)
-    # num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
-    # future = p1.make_future_dataframe(periods=num_periods, include_history=False )
-    # forecast1 = p1.predict(future)
-    # forecast1 = forecast1.rename(columns = {'ds':'Date', 'yhat':'Price'})
-
-    # #forecast length = 30 days
-    # forecast_startdate = startdate - datetime.timedelta(days=30)
-
-    # prior = db2.get_stock_prices_date_range(ticker, forecast_startdate, startdate)
-    # prior.columns = ['ds', 'y']
-    # prior['ds'] = pd.to_datetime(prior['ds'])
-    # p1.fit(prior)
-    # num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
-    # future = p1.make_future_dataframe(periods=num_periods, include_history=False )
-    # forecast2 = p1.predict(future)
-    # forecast2 = forecast2.rename(columns = {'ds':'Date', 'yhat':'Price'})
-
-
-
-    #######
-
-    # st.text('forecast')
-    # st.table(forecast)
-
-    # st.text('prices')
-    # st.table(df)
-   
-
-
-    #df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
 
     account = Account(balance)
 
@@ -150,7 +106,7 @@ def app():
     #signals = db.entries(ticker, startdate, enddate)
 
     sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
-    sns.lineplot(x='Date', y='Price', data=forecast1, ax=axis, label='Forecast - 100 Days')
+    #sns.lineplot(x='Date', y='Price', data=forecast1, ax=axis, label='Forecast - 100 Days')
     sns.lineplot(x='Date', y='Price', data=forecast2, ax=axis, label='Forecast - 200 Days')
     
     axis.legend()
