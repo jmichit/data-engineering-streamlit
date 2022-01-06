@@ -54,14 +54,15 @@ def app():
         
         #find startdate for forecast
         forecast_startdate = startdate - datetime.timedelta(days=days)
-        forecast_enddate = startdate - datetime.timedelta(days=1)
+        forecast_enddate = startdate #- datetime.timedelta(days=1)
 
         prior = db2.get_stock_prices_date_range(ticker, forecast_startdate, forecast_enddate)
         prior.columns = ['ds', 'y']
         prior['ds'] = pd.to_datetime(prior['ds'])
         p1.fit(prior)
         num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
-        future = p1.make_future_dataframe(periods=num_periods, include_history=False )
+        future = p1.make_future_dataframe(periods=num_periods, include_history=True )
+        future = future[future['ds'] >= startdate]
         future['floor'] = 0     #set floor for future forecast
         future2 = future[future['ds'].dt.dayofweek < 5]
         forecast = p1.predict(future2)
