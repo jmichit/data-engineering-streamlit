@@ -69,7 +69,7 @@ def app():
         forecast = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
         return forecast
 
-    forecast1 = get_prophet_forecast(ticker, startdate, enddate, 30)
+    forecast1 = get_prophet_forecast(ticker, startdate, enddate, 100)
     forecast2 = get_prophet_forecast(ticker, startdate, enddate, 200)
 
 
