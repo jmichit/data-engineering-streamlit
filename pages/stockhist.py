@@ -48,14 +48,32 @@ def app():
     ########
     from prophet import Prophet
     p1 = Prophet()
-    prior = db2.get_stock_prices_date_range(ticker, datemin, startdate)
+
+    #forecast length = 200 days
+    forecast_startdate = startdate - datetime.timedelta(days=200)
+
+    prior = db2.get_stock_prices_date_range(ticker, forecast_startdate, startdate)
     prior.columns = ['ds', 'y']
     prior['ds'] = pd.to_datetime(prior['ds'])
     p1.fit(prior)
     num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
     future = p1.make_future_dataframe(periods=num_periods, include_history=False )
-    forecast = p1.predict(future)
-    forecast = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
+    forecast1 = p1.predict(future)
+    forecast1 = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
+
+    #forecast length = 30 days
+    forecast_startdate = startdate - datetime.timedelta(days=30)
+
+    prior = db2.get_stock_prices_date_range(ticker, forecast_startdate, startdate)
+    prior.columns = ['ds', 'y']
+    prior['ds'] = pd.to_datetime(prior['ds'])
+    p1.fit(prior)
+    num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
+    future = p1.make_future_dataframe(periods=num_periods, include_history=False )
+    forecast2 = p1.predict(future)
+    forecast2 = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
+
+
 
     #######
 
@@ -106,7 +124,9 @@ def app():
     #signals = db.entries(ticker, startdate, enddate)
 
     sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
-    sns.lineplot(x='Date', y='Price', data=forecast, ax=axis, label='Forecast')
+    sns.lineplot(x='Date', y='Price', data=forecast1, ax=axis, label='Forecast - 200 Days')
+    sns.lineplot(x='Date', y='Price', data=forecast1, ax=axis, label='Forecast - 30 Days')
+
     axis.legend()
 
     indicies = np.linspace(0, df['Date'].size, dtype=int, num=30,  endpoint=False)
