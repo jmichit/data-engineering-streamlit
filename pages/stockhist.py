@@ -1,5 +1,7 @@
 import streamlit as st
 
+from prophet import Prophet
+
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
@@ -46,32 +48,56 @@ def app():
 
 
     ########
-    from prophet import Prophet
-    p1 = Prophet()
 
-    #forecast length = 200 days
-    forecast_startdate = startdate - datetime.timedelta(days=200)
+    def get_prophet_forecast(ticker, startdays, enddate, days):
+        """
+        Create a Prophet forecast based on `days` provided
+        """
 
-    prior = db2.get_stock_prices_date_range(ticker, forecast_startdate, startdate)
-    prior.columns = ['ds', 'y']
-    prior['ds'] = pd.to_datetime(prior['ds'])
-    p1.fit(prior)
-    num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
-    future = p1.make_future_dataframe(periods=num_periods, include_history=False )
-    forecast1 = p1.predict(future)
-    forecast1 = forecast1.rename(columns = {'ds':'Date', 'yhat':'Price'})
+        p1 = Prophet()
+        
+        #find startdate for forecast
+        forecast_startdate = startdate - datetime.timedelta(days=days)
 
-    #forecast length = 30 days
-    forecast_startdate = startdate - datetime.timedelta(days=30)
+        prior = db2.get_stock_prices_date_range(ticker, forecast_startdate, startdate)
+        prior.columns = ['ds', 'y']
+        prior['ds'] = pd.to_datetime(prior['ds'])
+        p1.fit(prior)
+        num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
+        future = p1.make_future_dataframe(periods=num_periods, include_history=False )
+        forecast = p1.predict(future)
+        forecast = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
+        return forecast
 
-    prior = db2.get_stock_prices_date_range(ticker, forecast_startdate, startdate)
-    prior.columns = ['ds', 'y']
-    prior['ds'] = pd.to_datetime(prior['ds'])
-    p1.fit(prior)
-    num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
-    future = p1.make_future_dataframe(periods=num_periods, include_history=False )
-    forecast2 = p1.predict(future)
-    forecast2 = forecast2.rename(columns = {'ds':'Date', 'yhat':'Price'})
+    forecast1 = get_prophet_forecast(ticker, startdate, enddate, 30)
+    forecast2 = get_prophet_forecast(ticker, startdate, enddate, 200)
+
+
+    # p1 = Prophet()
+
+    # #forecast length = 200 days
+    # forecast_startdate = startdate - datetime.timedelta(days=200)
+
+    # prior = db2.get_stock_prices_date_range(ticker, forecast_startdate, startdate)
+    # prior.columns = ['ds', 'y']
+    # prior['ds'] = pd.to_datetime(prior['ds'])
+    # p1.fit(prior)
+    # num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
+    # future = p1.make_future_dataframe(periods=num_periods, include_history=False )
+    # forecast1 = p1.predict(future)
+    # forecast1 = forecast1.rename(columns = {'ds':'Date', 'yhat':'Price'})
+
+    # #forecast length = 30 days
+    # forecast_startdate = startdate - datetime.timedelta(days=30)
+
+    # prior = db2.get_stock_prices_date_range(ticker, forecast_startdate, startdate)
+    # prior.columns = ['ds', 'y']
+    # prior['ds'] = pd.to_datetime(prior['ds'])
+    # p1.fit(prior)
+    # num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
+    # future = p1.make_future_dataframe(periods=num_periods, include_history=False )
+    # forecast2 = p1.predict(future)
+    # forecast2 = forecast2.rename(columns = {'ds':'Date', 'yhat':'Price'})
 
 
 
@@ -124,8 +150,9 @@ def app():
     #signals = db.entries(ticker, startdate, enddate)
 
     sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
-    sns.lineplot(x='Date', y='Price', data=forecast1, ax=axis, label='Forecast - 200 Days')
-    sns.lineplot(x='Date', y='Price', data=forecast2, ax=axis, label='Forecast - 30 Days')
+    sns.lineplot(x='Date', y='Price', data=forecast1, ax=axis, label='Forecast - 30 Days')
+    sns.lineplot(x='Date', y='Price', data=forecast2, ax=axis, label='Forecast - 200 Days')
+    
 
     axis.legend()
 
