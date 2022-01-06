@@ -42,6 +42,9 @@ def app():
 
     fig, axis = plt.subplots()
 
+    df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
+
+
     ########
     from prophet import Prophet
     p1 = Prophet()
@@ -55,6 +58,14 @@ def app():
     forecast = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
 
     #######
+
+    st.text('forecast')
+    st.table(forecast)
+
+    st.text('prices')
+    st.table(df)
+   
+
 
     df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
 
