@@ -60,14 +60,16 @@ def app():
         prior['ds'] = pd.to_datetime(prior['ds'])
         p1.fit(prior)
         num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
-        future = p1.make_future_dataframe(periods=num_periods, include_history=False )
+        future = p1.make_future_dataframe(periods=num_periods, include_history=True )
         future['floor'] = 0     #set floor for future forecast
         forecast = p1.predict(future)
         forecast = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
         return forecast
 
     #forecast1 = get_prophet_forecast(ticker, startdate, enddate, 100)
-    forecast2 = get_prophet_forecast(ticker, startdate, enddate, 200)
+    forecast2 = get_prophet_forecast(ticker, startdate, enddate, 20)
+
+    st.table(forecast2)
 
     account = Account(balance)
 
