@@ -62,6 +62,7 @@ def app():
         num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
         future = p1.make_future_dataframe(periods=num_periods, include_history=True )
         future['floor'] = 0     #set floor for future forecast
+        future = future[future['ds'].dt.weekday < 5]
         forecast = p1.predict(future)
         forecast = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
         return forecast
