@@ -10,6 +10,7 @@ import datetime
 from StockDB2 import StockDB2 
 from Accounts import Account
 
+
 def app():
     col1, col2 = st.columns([2,2])
 
@@ -40,6 +41,17 @@ def app():
     balance = col1.text_input("Balance", value= 10000)
 
     fig, axis = plt.subplots()
+
+    ########
+    from prophet import Prophet
+    p1 = Prophet()
+    prior = db2.get_stock_prices_date_range(ticker, defaultmin, startdate)
+    prior.columns = ['ds', 'y']
+    prior['ds'] = pd.to_datetime(prior['ds'])
+    p1.fit(prior)
+    future = p1.make_future_dataframe(periods=enddate - startdate + 1)
+    forecast = p1.predict(future)
+    #######
 
     df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
 
@@ -79,8 +91,8 @@ def app():
 
     #signals = db.entries(ticker, startdate, enddate)
 
-    #sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
-    axis.plot(df['Date'], df['Price'])
+    sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
+    sns.lineplot(x='ds', y='yhat', data=future, ax=axis, label='Forecast')
     axis.legend()
 
     indicies = np.linspace(0, df['Date'].size, dtype=int, num=30,  endpoint=False)
@@ -106,6 +118,7 @@ def app():
     st.text("Strategy: Buy & Hold")
 
     st.pyplot(fig)
+
 
     st.table(signals)
 
