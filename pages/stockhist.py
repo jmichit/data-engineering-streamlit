@@ -111,7 +111,7 @@ def app():
    
 
 
-    df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
+    #df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
 
     account = Account(balance)
 
@@ -150,7 +150,7 @@ def app():
     #signals = db.entries(ticker, startdate, enddate)
 
     sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
-    sns.lineplot(x='Date', y='Price', data=forecast1, ax=axis, label='Forecast - 30 Days')
+    sns.lineplot(x='Date', y='Price', data=forecast1, ax=axis, label='Forecast - 100 Days')
     sns.lineplot(x='Date', y='Price', data=forecast2, ax=axis, label='Forecast - 200 Days')
     
     axis.legend()
