@@ -49,7 +49,7 @@ def app():
     prior.columns = ['ds', 'y']
     prior['ds'] = pd.to_datetime(prior['ds'])
     p1.fit(prior)
-    num_periods = enddate - startdate + 1
+    num_periods = (d2 - d1 + datetime.timedelta(days=1)).days
     future = p1.make_future_dataframe(periods=num_periods)
     forecast = p1.predict(future)
     #######
