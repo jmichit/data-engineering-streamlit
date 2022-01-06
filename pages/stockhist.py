@@ -52,6 +52,8 @@ def app():
     num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
     future = p1.make_future_dataframe(periods=num_periods)
     forecast = p1.predict(future)
+    forecast = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
+
     #######
 
     df = db2.get_stock_prices_date_range(ticker, startdate, enddate)
@@ -92,8 +94,8 @@ def app():
 
     #signals = db.entries(ticker, startdate, enddate)
 
-    #sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
-    sns.lineplot(x='ds', y='yhat', data=forecast, ax=axis, label='Forecast')
+    sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
+    sns.lineplot(x='Date', y='Price', data=forecast, ax=axis, label='Forecast')
     axis.legend()
 
     indicies = np.linspace(0, df['Date'].size, dtype=int, num=30,  endpoint=False)
