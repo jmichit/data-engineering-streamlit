@@ -49,7 +49,7 @@ def app():
 
     ########
 
-    def get_prophet_forecast(ticker, startdays, enddate, days):
+    def get_prophet_forecast(ticker, startdate, enddate, days):
         """
         Create a Prophet forecast based on `days` provided
         """
@@ -153,7 +153,6 @@ def app():
     sns.lineplot(x='Date', y='Price', data=forecast1, ax=axis, label='Forecast - 30 Days')
     sns.lineplot(x='Date', y='Price', data=forecast2, ax=axis, label='Forecast - 200 Days')
     
-
     axis.legend()
 
     indicies = np.linspace(0, df['Date'].size, dtype=int, num=30,  endpoint=False)
