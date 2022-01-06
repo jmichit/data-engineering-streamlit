@@ -59,7 +59,7 @@ def app():
     num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
     future = p1.make_future_dataframe(periods=num_periods, include_history=False )
     forecast1 = p1.predict(future)
-    forecast1 = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
+    forecast1 = forecast1.rename(columns = {'ds':'Date', 'yhat':'Price'})
 
     #forecast length = 30 days
     forecast_startdate = startdate - datetime.timedelta(days=30)
@@ -71,7 +71,7 @@ def app():
     num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
     future = p1.make_future_dataframe(periods=num_periods, include_history=False )
     forecast2 = p1.predict(future)
-    forecast2 = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
+    forecast2 = forecast2.rename(columns = {'ds':'Date', 'yhat':'Price'})
 
 
 
@@ -125,7 +125,7 @@ def app():
 
     sns.lineplot(x='Date', y='Price', data=df, ax=axis, label='Price')
     sns.lineplot(x='Date', y='Price', data=forecast1, ax=axis, label='Forecast - 200 Days')
-    sns.lineplot(x='Date', y='Price', data=forecast1, ax=axis, label='Forecast - 30 Days')
+    sns.lineplot(x='Date', y='Price', data=forecast2, ax=axis, label='Forecast - 30 Days')
 
     axis.legend()
 
