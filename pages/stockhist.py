@@ -45,11 +45,12 @@ def app():
     ########
     from prophet import Prophet
     p1 = Prophet()
-    prior = db2.get_stock_prices_date_range(ticker, defaultmin, startdate)
+    prior = db2.get_stock_prices_date_range(ticker, datemin, startdate)
     prior.columns = ['ds', 'y']
     prior['ds'] = pd.to_datetime(prior['ds'])
     p1.fit(prior)
-    future = p1.make_future_dataframe(periods=enddate - startdate + 1)
+    num_periods = enddate - startdate + 1
+    future = p1.make_future_dataframe(periods=num_periods)
     forecast = p1.predict(future)
     #######
 
