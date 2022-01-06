@@ -53,17 +53,17 @@ def app():
     prior['ds'] = pd.to_datetime(prior['ds'])
     p1.fit(prior)
     num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
-    future = p1.make_future_dataframe(periods=num_periods)
+    future = p1.make_future_dataframe(periods=num_periods, include_history=False )
     forecast = p1.predict(future)
     forecast = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
 
     #######
 
-    st.text('forecast')
-    st.table(forecast)
+    # st.text('forecast')
+    # st.table(forecast)
 
-    st.text('prices')
-    st.table(df)
+    # st.text('prices')
+    # st.table(df)
    
 
 
