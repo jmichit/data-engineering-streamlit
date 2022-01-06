@@ -54,8 +54,9 @@ def app():
         
         #find startdate for forecast
         forecast_startdate = startdate - datetime.timedelta(days=days)
+        forecast_enddate = startdate - datetime.timedelta(days=1)
 
-        prior = db2.get_stock_prices_date_range(ticker, forecast_startdate, startdate)
+        prior = db2.get_stock_prices_date_range(ticker, forecast_startdate, forecast_enddate)
         prior.columns = ['ds', 'y']
         prior['ds'] = pd.to_datetime(prior['ds'])
         p1.fit(prior)
