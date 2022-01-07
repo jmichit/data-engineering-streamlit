@@ -62,7 +62,7 @@ def app():
         p1.fit(prior)
         num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
         future = p1.make_future_dataframe(periods=num_periods, include_history=False )
-        future = future[future['ds'] >= startdate]
+        #future = future[future['ds'] >= startdate]
         future['floor'] = 0     #set floor for future forecast
         future2 = future[future['ds'].dt.dayofweek < 5]
         forecast = p1.predict(future2)
