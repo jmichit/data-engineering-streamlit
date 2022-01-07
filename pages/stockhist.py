@@ -67,7 +67,7 @@ def app():
         future2 = future[future['ds'].dt.dayofweek < 5]
         forecast = p1.predict(future2)
         forecast = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
-        forecast.append([startdate, prior[prior['ds']==startdate]])
+        forecast.append([forecast_enddate, prior[prior['ds']==startdate]])
         return forecast
 
     #forecast1 = get_prophet_forecast(ticker, startdate, enddate, 100)
