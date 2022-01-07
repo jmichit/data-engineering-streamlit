@@ -61,12 +61,13 @@ def app():
         prior['ds'] = pd.to_datetime(prior['ds'])
         p1.fit(prior)
         num_periods = (enddate - startdate + datetime.timedelta(days=1)).days
-        future = p1.make_future_dataframe(periods=num_periods, include_history=True )
+        future = p1.make_future_dataframe(periods=num_periods, include_history=False )
         future = future[future['ds'] >= startdate]
         future['floor'] = 0     #set floor for future forecast
         future2 = future[future['ds'].dt.dayofweek < 5]
         forecast = p1.predict(future2)
         forecast = forecast.rename(columns = {'ds':'Date', 'yhat':'Price'})
+        forecast.append([startdate, prior[prior['ds']==startdate]])
         return forecast
 
     #forecast1 = get_prophet_forecast(ticker, startdate, enddate, 100)
