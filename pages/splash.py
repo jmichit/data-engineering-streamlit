@@ -16,3 +16,4 @@ def app():
     col1.markdown("1. Streamlit (this app)")
     col1.markdown("2. Alpha Vantage API (to get stock prices")
     col1.markdown("3. Oracle Autonomous Cloud database to collect the stock data and feed the app")
+    col1.markdown("4. Prophet by Facebook (https://facebook.github.io/prophet/) for timeseries forecasting ")

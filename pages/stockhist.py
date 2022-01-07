@@ -73,7 +73,7 @@ def app():
     forecast1 = get_prophet_forecast(ticker, startdate, enddate, 100)
     forecast2 = get_prophet_forecast(ticker, startdate, enddate, 20)
 
-    st.table(forecast2)
+    #st.table(forecast2)
 
     account = Account(balance)
 
